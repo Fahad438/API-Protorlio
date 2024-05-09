@@ -9,6 +9,8 @@ const app= express()
 
 //call model
 const About =require("./models/about")
+const Experiences =require("./models/Experiences")
+
 
 //here we conect with db mangoose db 
 db.connect("mongodb+srv://Fahad:Fahad767686@cluster0.gnfavon.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
@@ -66,6 +68,61 @@ app.delete("/about/:aboutId",async (req,res)=>{
     })
  
 
+
+//Exp endpoint post data
+app.post("/experiences",async (req,res)=>{
+
+    //crate new opject with type Experiences
+    const newExperiences = new Experiences()
+    //take value from body and put it in var
+    const startDate=req.body.startDate
+    const endDate=req.body.endDate
+    const nameJop=req.body.nameJop
+    const compnyName=req.body.compnyName
+    //we put data we have in modles var
+     newExperiences.startDate=startDate
+     newExperiences.endDate=endDate
+     newExperiences.nameJop=nameJop
+     newExperiences.compnyName=compnyName
+     //save data in mangoose 
+    await newExperiences.save()
+    res.send("done")
+   
+   })
+//Exp endpoint get data
+app.get("/experiences",async (req,res)=>{
+
+        const exp=await Experiences.find();
+
+        res.json(exp)
+   })
+//Exp endpoint delete data
+app.delete("/experiences/:id",async (req,res)=>{
+       const id=req.params.id
+
+       const deleteExp=await Experiences.findByIdAndDelete(id)
+
+       res.json(deleteExp)
+   })
+//Exp endpoint update data
+app.put("/experiences/:id",async (req,res)=>{
+    const id=req.params.id
+    const upDate=await Experiences.findById(id)
+    console.log(upDate)
+    const startDate=req.body.startDate
+    const endDate=req.body.endDate
+    const nameJop=req.body.nameJop
+    const compnyName=req.body.compnyName
+    //we put data we have in modles var
+    upDate.startDate=startDate
+    upDate.endDate=endDate
+    upDate.nameJop=nameJop
+    upDate.compnyName=compnyName
+
+    await upDate.save();
+
+     res.json(upDate)
+})
    
 
 
