@@ -9,7 +9,6 @@ const expSchema = new Schema({
     endDate:String,
     nameJop:String,
     compnyName:String
-
 })
 
 const Experiences = mongoose.model("Experiences",expSchema)

@@ -10,6 +10,7 @@ const app= express()
 //call model
 const About =require("./models/about")
 const Experiences =require("./models/Experiences")
+const Skill =require("./models/Skill")
 
 
 //here we conect with db mangoose db 
@@ -123,7 +124,49 @@ app.put("/experiences/:id",async (req,res)=>{
 
      res.json(upDate)
 })
-   
+
+//Skill endpoint post Data
+app.post("/skill", async(req,res)=>{
+    const newSkill =new Skill()
+    const nameSkill=req.body.nameSkill;
+    const imgSkill=req.body.imgSkill;
+
+    newSkill.nameSkill=nameSkill;
+    newSkill.imgSkill=imgSkill
+
+    await newSkill.save()
+    res.send("Done")
+
+})
+
+//Skill endpoint Get Data'
+app.get("/skill",async (req,res)=>{
+    const allSkill=await Skill.find()
+    res.json(allSkill)
+})
+
+
+//Skill endpoint Delete Data'
+app.delete("/skill/:id",async (req,res)=>{
+    const id=req.params.id
+    const allSkill=await Skill.findByIdAndDelete(id)
+    res.json(allSkill)
+})
+
+//Skill endpoint update data
+app.put("/skill/:id",async (req,res)=>{
+    const id =req.params.id
+    const skillData=await Skill.findById(id)
+    //
+    const nameSkill=req.body.nameSkill;
+    const imgSkill=req.body.imgSkill;
+    //
+    skillData.nameSkill=nameSkill;
+    skillData.imgSkill=imgSkill;
+    await skillData.save()
+
+    res.send("done")
+})
 
 
 
