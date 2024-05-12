@@ -11,6 +11,8 @@ const expSchema = new Schema({
     compnyName:String
 })
 
+
+
 const Experiences = mongoose.model("Experiences",expSchema)
 
 module.exports = Experiences

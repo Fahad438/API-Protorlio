@@ -129,10 +129,10 @@ app.put("/experiences/:id",async (req,res)=>{
 app.post("/skill", async(req,res)=>{
     const newSkill =new Skill()
     const nameSkill=req.body.nameSkill;
-    const imgSkill=req.body.imgSkill;
+  
 
     newSkill.nameSkill=nameSkill;
-    newSkill.imgSkill=imgSkill
+  
 
     await newSkill.save()
     res.send("Done")
